@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - HotelBooking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-card fade-in">
+            <div class="auth-header">
+                <a href="index.html" class="logo">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span class="logo-text">HotelBooking</span>
+                </a>
+                <h1>Регистрация</h1>
+                <p>Создайте аккаунт для бронирования отелей</p>
+            </div>
+
+            <div id="errorMessages"></div>
+
+            <form class="auth-form" id="registerForm" onsubmit="return handleRegister(event)">
+                <div class="form-group">
+                    <label for="email">E-mail <span class="required">*</span></label>
+                    <input type="email" id="email" class="input" placeholder="example@mail.ru" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="firstName">Имя <span class="required">*</span></label>
+                    <input type="text" id="firstName" class="input" placeholder="Иван" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Фамилия</label>
+                    <input type="text" id="lastName" class="input" placeholder="Иванов">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Телефон <span class="required">*</span></label>
+                    <input type="tel" id="phone" class="input" placeholder="+7 (999) 123-45-67" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Пароль <span class="required">*</span></label>
+                    <input type="password" id="password" class="input" placeholder="••••••••" required minlength="6">
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Повторите пароль <span class="required">*</span></label>
+                    <input type="password" id="confirmPassword" class="input" placeholder="••••••••" required minlength="6">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="consent" required>
+                    <label for="consent">Согласен на обработку персональных данных <span class="required">*</span></label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg btn-full">Зарегистрироваться</button>
+
+                <div class="auth-footer">
+                    Уже есть аккаунт? <a href="login.html">Войти</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const firstName = document.getElementById('firstName').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const consent = document.getElementById('consent').checked;
+            
+            const errors = [];
+            const errorDiv = document.getElementById('errorMessages');
+            
+            if (!email) errors.push('Email обязателен для заполнения');
+            if (!validateEmail(email)) errors.push('Некорректный email');
+            if (!firstName) errors.push('Имя обязательно для заполнения');
+            if (!phone) errors.push('Телефон обязателен для заполнения');
+            if (!validatePhone(phone)) errors.push('Некорректный номер телефона');
+            if (!password) errors.push('Пароль обязателен для заполнения');
+            if (password.length < 6) errors.push('Пароль должен быть не менее 6 символов');
+            if (password !== confirmPassword) errors.push('Пароли не совпадают');
+            if (!consent) errors.push('Необходимо согласие на обработку персональных данных');
+            
+            if (errors.length > 0) {
+                errorDiv.innerHTML = '<div class="alert alert-error"><ul>' + 
+                    errors.map(err => '<li>' + err + '</li>').join('') + 
+                    '</ul></div>';
+                return false;
+            }
+            
+            alert('Регистрация прошла успешно!');
+            window.location.href = 'login.html';
+            return false;
+        }
+    </script>
+</body>
+</html>
