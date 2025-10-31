@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск отелей - HotelBooking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .search-layout {display: grid;grid-template-columns: 280px 1fr;gap: 24px;padding: 40px 0;}
+        .search-sidebar {position: sticky;top: 100px;}
+        .filter-section {background: white;border: 1px solid var(--border);border-radius: var(--radius);padding: 20px;}
+        .filter-group {margin-bottom: 16px;padding-bottom: 16px;border-bottom: 1px solid var(--border);}
+        .filter-group:last-child {border-bottom: none;}
+        .hotel-list-item {background: white;border: 1px solid var(--border);border-radius: var(--radius);overflow: hidden;margin-bottom: 16px;}
+        .hotel-list-content {display: grid;grid-template-columns: 320px 1fr;gap: 20px;}
+        .hotel-list-image {width: 100%;height: 240px;object-fit: cover;}
+        .hotel-list-details {padding: 20px;}
+        .stars {display: flex;gap: 2px;margin-bottom: 8px;}
+        .amenities-badges {display: flex;flex-wrap: wrap;gap: 8px;margin: 12px 0;}
+        .hotel-list-footer {display: flex;justify-content: space-between;align-items: center;padding-top: 12px;border-top: 1px solid var(--border);margin-top: 12px;}
+        .pagination {display: flex;justify-content: center;gap: 8px;margin-top: 32px;}
+        .page-btn {padding: 8px 14px;border: 1px solid var(--border);background: white;border-radius: 6px;cursor: pointer;}
+        .page-btn.active {background: var(--primary);color: white;}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span class="logo-text">HotelBooking</span>
+            </a>
+            <a href="index.html" class="btn btn-outline">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                На главную
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div style="padding: 24px 0;">
+            <div class="search-card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Направление/город, страна</label>
+                        <input type="text" class="input" placeholder="Куда едем?">
+                    </div>
+                    <div class="form-group">
+                        <label>Даты заезда-отъезда</label>
+                        <input type="date" class="input">
+                    </div>
+                    <div class="form-group">
+                        <label>Количество гостей</label>
+                        <input type="number" class="input" placeholder="2" min="1">
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-lg btn-full" style="margin-top: 16px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    Найти отель
+                </button>
+            </div>
+        </div>
+
+        <div class="search-layout">
+            <div class="search-sidebar">
+                <div class="filter-section fade-in">
+                    <h3 style="font-size: 18px;margin-bottom: 16px;">Фильтры</h3>
+                    
+                    <div class="filter-group">
+                        <label style="font-size: 14px;font-weight: 500;margin-bottom: 8px;display: block;">Показать</label>
+                        <div style="display: flex;gap: 8px;">
+                            <button class="btn btn-primary btn-sm" style="flex: 1;font-size: 13px;">Список</button>
+                            <button class="btn btn-outline btn-sm" style="flex: 1;font-size: 13px;">Карта</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label style="font-size: 14px;font-weight: 500;margin-bottom: 8px;display: block;">Цена за ночь</label>
+                        <input type="range" min="0" max="10000" value="5000" class="input" style="width: 100%;margin-bottom: 8px;">
+                        <div style="display: flex;justify-content: space-between;font-size: 14px;color: var(--text-muted);">
+                            <span>0 ₽</span>
+                            <span>10000 ₽</span>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label style="font-size: 14px;font-weight: 500;margin-bottom: 12px;display: block;">Количество звезд</label>
+                        <div style="display: flex;flex-direction: column;gap: 8px;">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="stars5">
+                                <label for="stars5" style="display: flex;align-items: center;">★★★★★</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="stars4">
+                                <label for="stars4" style="display: flex;align-items: center;">★★★★</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="stars3">
+                                <label for="stars3" style="display: flex;align-items: center;">★★★</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label style="font-size: 14px;font-weight: 500;margin-bottom: 8px;display: block;">Оценка по отзывам</label>
+                        <select class="input" style="width: 100%;">
+                            <option>Любая</option>
+                            <option>9+ Превосходно</option>
+                            <option>8+ Очень хорошо</option>
+                            <option>7+ Хорошо</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label style="font-size: 14px;font-weight: 500;margin-bottom: 12px;display: block;">Удобства</label>
+                        <div style="display: flex;flex-direction: column;gap: 8px;">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="wifi">
+                                <label for="wifi">WiFi</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="parking">
+                                <label for="parking">Парковка</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="pool">
+                                <label for="pool">Бассейн</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="spa">
+                                <label for="spa">Спа</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="restaurant">
+                                <label for="restaurant">Ресторан</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div style="display: flex;justify-content: space-between;align-items: center;margin-bottom: 16px;">
+                    <p style="color: var(--text-muted);">Найдено отелей: 5</p>
+                    <select class="input" style="width: 200px;">
+                        <option>По рейтингу</option>
+                        <option>Сначала дешевые</option>
+                        <option>Сначала дорогие</option>
+                        <option>По звездам</option>
+                    </select>
+                </div>
+
+                <div class="hotel-list-item fade-in">
+                    <div class="hotel-list-content">
+                        <img src="https://cdn.poehali.dev/projects/a759bbd4-db2b-469a-9c6d-5d61dcf1068c/files/41f82c34-1d27-4d34-be48-458d95da16b1.jpg" alt="Гранд Отель Сочи" class="hotel-list-image">
+                        <div class="hotel-list-details">
+                            <div style="display: flex;justify-content: space-between;align-items: start;margin-bottom: 12px;">
+                                <div>
+                                    <div class="stars">★★★★★</div>
+                                    <h3 style="font-size: 22px;margin-bottom: 4px;">Гранд Отель Сочи</h3>
+                                    <p style="font-size: 14px;color: var(--text-muted);">Сочи, Россия</p>
+                                </div>
+                                <span class="badge badge-primary" style="font-size: 16px;padding: 8px 12px;">9.2/10</span>
+                            </div>
+                            <p style="font-size: 14px;margin-bottom: 12px;">Роскошный отель на берегу Черного моря с собственным пляжем</p>
+                            <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 8px;font-size: 14px;margin-bottom: 12px;">
+                                <div style="display: flex;align-items: center;gap: 6px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                    <span>ул. Морская, 15</span>
+                                </div>
+                                <div style="display: flex;align-items: center;gap: 6px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                    <span>2.5 км от центра</span>
+                                </div>
+                                <div style="display: flex;align-items: center;gap: 6px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                    <span>+7 (862) 123-45-67</span>
+                                </div>
+                            </div>
+                            <div class="amenities-badges">
+                                <span class="amenity-badge">WiFi</span>
+                                <span class="amenity-badge">Парковка</span>
+                                <span class="amenity-badge">Бассейн</span>
+                                <span class="amenity-badge">Спа</span>
+                                <span class="amenity-badge">Ресторан</span>
+                            </div>
+                            <div class="hotel-list-footer">
+                                <div>
+                                    <p style="font-size: 14px;color: var(--text-muted);margin-bottom: 4px;">Номер от</p>
+                                    <p style="font-family: 'Montserrat', sans-serif;font-size: 28px;font-weight: 700;color: var(--primary);">5 000 ₽<span style="font-size: 14px;font-weight: 400;color: var(--text-muted);">/ночь</span></p>
+                                </div>
+                                <a href="result.html" class="btn btn-primary">Выбрать номер</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hotel-list-item fade-in">
+                    <div class="hotel-list-content">
+                        <img src="https://cdn.poehali.dev/projects/a759bbd4-db2b-469a-9c6d-5d61dcf1068c/files/a3da6286-d444-49c0-80fa-702c979158fd.jpg" alt="Арбат Хаус" class="hotel-list-image">
+                        <div class="hotel-list-details">
+                            <div style="display: flex;justify-content: space-between;align-items: start;margin-bottom: 12px;">
+                                <div>
+                                    <div class="stars">★★★★</div>
+                                    <h3 style="font-size: 22px;margin-bottom: 4px;">Арбат Хаус</h3>
+                                    <p style="font-size: 14px;color: var(--text-muted);">Москва, Россия</p>
+                                </div>
+                                <span class="badge badge-primary" style="font-size: 16px;padding: 8px 12px;">8.8/10</span>
+                            </div>
+                            <p style="font-size: 14px;margin-bottom: 12px;">Бутик-отель в историческом центре Москвы</p>
+                            <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 8px;font-size: 14px;margin-bottom: 12px;">
+                                <div style="display: flex;align-items: center;gap: 6px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                    <span>Арбат, 28</span>
+                                </div>
+                                <div style="display: flex;align-items: center;gap: 6px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                    <span>0.5 км от центра</span>
+                                </div>
+                                <div style="display: flex;align-items: center;gap: 6px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                    <span>+7 (495) 234-56-78</span>
+                                </div>
+                            </div>
+                            <div class="amenities-badges">
+                                <span class="amenity-badge">WiFi</span>
+                                <span class="amenity-badge">Завтрак</span>
+                                <span class="amenity-badge">Кондиционер</span>
+                            </div>
+                            <div class="hotel-list-footer">
+                                <div>
+                                    <p style="font-size: 14px;color: var(--text-muted);margin-bottom: 4px;">Номер от</p>
+                                    <p style="font-family: 'Montserrat', sans-serif;font-size: 28px;font-weight: 700;color: var(--primary);">4 500 ₽<span style="font-size: 14px;font-weight: 400;color: var(--text-muted);">/ночь</span></p>
+                                </div>
+                                <a href="result.html" class="btn btn-primary">Выбрать номер</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pagination">
+                    <button class="page-btn">‹</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">...</button>
+                    <button class="page-btn">›</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

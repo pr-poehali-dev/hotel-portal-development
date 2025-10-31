@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление отеля - HotelBooking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span class="logo-text">HotelBooking</span>
+            </a>
+            <a href="index.html" class="btn btn-outline">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                На главную
+            </a>
+        </div>
+    </header>
+
+    <div class="profile-page">
+        <div class="container">
+            <div class="auth-card fade-in" style="max-width: 900px; margin: 40px auto;">
+                <div class="auth-header">
+                    <h1>Добавление отеля</h1>
+                    <p>Заполните информацию об отеле для добавления в каталог</p>
+                </div>
+
+                <div id="errorMessages"></div>
+
+                <form class="auth-form" id="addHotelForm" onsubmit="return handleAddHotel(event)">
+                    <div class="form-grid" style="grid-template-columns: 1fr 1fr;">
+                        <div class="form-group">
+                            <label for="hotelPhone">Контактный телефон отеля <span class="required">*</span></label>
+                            <input type="tel" id="hotelPhone" class="input" placeholder="+7 (999) 123-45-67" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hotelEmail">E-mail отеля <span class="required">*</span></label>
+                            <input type="email" id="hotelEmail" class="input" placeholder="hotel@example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="legalInfo">Юридические данные отеля <span class="required">*</span></label>
+                        <textarea id="legalInfo" class="input" placeholder="ООО &quot;Гостиница&quot;, ИНН 1234567890, ОГРН..." rows="3" required style="resize: vertical; min-height: 80px;"></textarea>
+                    </div>
+
+                    <div class="form-grid" style="grid-template-columns: 1fr 1fr;">
+                        <div class="form-group">
+                            <label for="password">Пароль <span class="required">*</span></label>
+                            <input type="password" id="password" class="input" placeholder="••••••••" required minlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Подтверждение пароля <span class="required">*</span></label>
+                            <input type="password" id="confirmPassword" class="input" placeholder="••••••••" required minlength="6">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stars">Количество звезд</label>
+                        <select id="stars" class="input">
+                            <option value="1">1 звезда</option>
+                            <option value="2">2 звезды</option>
+                            <option value="3" selected>3 звезды</option>
+                            <option value="4">4 звезды</option>
+                            <option value="5">5 звезд</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photos">Фотографии отеля и номеров <span class="required">*</span> (до 3 фото)</label>
+                        <div style="border: 2px dashed var(--border); border-radius: var(--radius); padding: 40px; text-align: center; background: var(--muted-bg);">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin: 0 auto 12px; color: var(--text-muted);">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <p style="color: var(--text-muted); margin-bottom: 12px;">Загрузите до 3 фотографий</p>
+                            <input type="file" id="photos" class="input" accept="image/*" multiple onchange="updatePhotoCount()" style="max-width: 300px; margin: 0 auto;">
+                            <p id="photoCount" style="margin-top: 12px; font-weight: 500;"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Дополнительная информация об отеле</label>
+                        <textarea id="description" class="input" placeholder="Опишите отель, его особенности и преимущества..." rows="4" style="resize: vertical; min-height: 100px;"></textarea>
+                    </div>
+
+                    <div class="form-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+                        <div class="form-group">
+                            <label for="country">Страна <span class="required">*</span></label>
+                            <input type="text" id="country" class="input" placeholder="Россия" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">Город <span class="required">*</span></label>
+                            <input type="text" id="city" class="input" placeholder="Москва" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="district">Район</label>
+                            <input type="text" id="district" class="input" placeholder="Центральный">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hotelType">Вид отеля по типу</label>
+                        <select id="hotelType" class="input">
+                            <option value="">Выберите тип отеля</option>
+                            <option value="hotel">Отель</option>
+                            <option value="resort">Курорт</option>
+                            <option value="boutique">Бутик-отель</option>
+                            <option value="hostel">Хостел</option>
+                            <option value="apartment">Апартаменты</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Удобства в отеле</label>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px;">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="amenity1" value="WiFi">
+                                <label for="amenity1">Wi-Fi</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="amenity2" value="Парковка">
+                                <label for="amenity2">Парковка</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="amenity3" value="Бассейн">
+                                <label for="amenity3">Бассейн</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="amenity4" value="Спа">
+                                <label for="amenity4">Спа</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="amenity5" value="Ресторан">
+                                <label for="amenity5">Ресторан</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="amenity6" value="Тренажерный зал">
+                                <label for="amenity6">Тренажерный зал</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="amenity7" value="Трансфер">
+                                <label for="amenity7">Трансфер</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="amenity8" value="Кондиционер">
+                                <label for="amenity8">Кондиционер</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="amenity9" value="Сейф">
+                                <label for="amenity9">Сейф</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group" style="margin-top: 24px;">
+                        <input type="checkbox" id="consent" required>
+                        <label for="consent">Согласен на обработку персональных данных <span class="required">*</span></label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg btn-full" style="margin-top: 24px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Добавить отель
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function updatePhotoCount() {
+            const input = document.getElementById('photos');
+            const count = input.files.length;
+            const countDisplay = document.getElementById('photoCount');
+            
+            if (count > 3) {
+                alert('Максимум 3 фотографии');
+                input.value = '';
+                countDisplay.textContent = '';
+                return;
+            }
+            
+            if (count > 0) {
+                countDisplay.textContent = `Загружено фото: ${count}/3`;
+            } else {
+                countDisplay.textContent = '';
+            }
+        }
+
+        function handleAddHotel(event) {
+            event.preventDefault();
+            
+            const hotelPhone = document.getElementById('hotelPhone').value;
+            const hotelEmail = document.getElementById('hotelEmail').value;
+            const legalInfo = document.getElementById('legalInfo').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const country = document.getElementById('country').value;
+            const city = document.getElementById('city').value;
+            const photos = document.getElementById('photos').files;
+            const consent = document.getElementById('consent').checked;
+            
+            const errors = [];
+            const errorDiv = document.getElementById('errorMessages');
+            
+            if (!hotelPhone) errors.push('Укажите контактный номер телефона');
+            if (!validatePhone(hotelPhone)) errors.push('Некорректный номер телефона');
+            if (!hotelEmail) errors.push('Укажите email отеля');
+            if (!validateEmail(hotelEmail)) errors.push('Некорректный email');
+            if (!legalInfo) errors.push('Укажите юридические данные');
+            if (!password) errors.push('Введите пароль');
+            if (password.length < 6) errors.push('Пароль должен быть не менее 6 символов');
+            if (password !== confirmPassword) errors.push('Пароли не совпадают');
+            if (!country || !city) errors.push('Укажите страну и город');
+            if (photos.length === 0) errors.push('Добавьте хотя бы одно фото');
+            if (photos.length > 3) errors.push('Максимум 3 фотографии');
+            if (!consent) errors.push('Необходимо согласие на обработку персональных данных');
+            
+            if (errors.length > 0) {
+                errorDiv.innerHTML = '<div class="alert alert-error"><ul>' + 
+                    errors.map(err => '<li>' + err + '</li>').join('') + 
+                    '</ul></div>';
+                window.scrollTo(0, 0);
+                return false;
+            }
+            
+            alert('Отель успешно добавлен! После модерации он появится в каталоге.');
+            window.location.href = 'index.html';
+            return false;
+        }
+    </script>
+</body>
+</html>

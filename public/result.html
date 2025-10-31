@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гранд Отель Сочи - HotelBooking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .result-layout {display: grid;grid-template-columns: 1fr 380px;gap: 32px;padding: 40px 0;}
+        .result-images {display: grid;grid-template-columns: repeat(3, 1fr);gap: 12px;}
+        .result-images img {width: 100%;height: 200px;object-fit: cover;border-radius: var(--radius);}
+        .result-images img:first-child {grid-column: 1 / -1;height: 400px;}
+        .result-card {background: white;border: 1px solid var(--border);border-radius: var(--radius);padding: 24px;margin-top: 24px;}
+        .amenities-grid {display: grid;grid-template-columns: repeat(4, 1fr);gap: 16px;}
+        .amenity-item {display: flex;align-items: center;gap: 8px;}
+        .amenity-icon {width: 40px;height: 40px;background: rgba(14, 165, 233, 0.1);border-radius: var(--radius);display: flex;align-items: center;justify-content: center;}
+        .room-item {display: flex;justify-content: space-between;align-items: center;padding: 16px;border: 1px solid var(--border);border-radius: var(--radius);margin-bottom: 12px;transition: all 0.2s;}
+        .room-item:hover {border-color: var(--primary);}
+        .sidebar-card {position: sticky;top: 100px;background: white;border: 1px solid var(--border);border-radius: var(--radius);padding: 24px;}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span class="logo-text">HotelBooking</span>
+            </a>
+            <div style="display: flex;gap: 8px;">
+                <a href="search.html" class="btn btn-outline">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Назад к поиску
+                </a>
+                <a href="index.html" class="btn btn-outline">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    На главную
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="result-layout">
+            <div>
+                <div class="result-images fade-in">
+                    <img src="https://cdn.poehali.dev/projects/a759bbd4-db2b-469a-9c6d-5d61dcf1068c/files/41f82c34-1d27-4d34-be48-458d95da16b1.jpg" alt="Гранд Отель Сочи">
+                    <img src="https://cdn.poehali.dev/projects/a759bbd4-db2b-469a-9c6d-5d61dcf1068c/files/a3da6286-d444-49c0-80fa-702c979158fd.jpg" alt="Номер отеля">
+                    <img src="https://cdn.poehali.dev/projects/a759bbd4-db2b-469a-9c6d-5d61dcf1068c/files/426a6c6b-6d0f-4221-8f62-260db94d4050.jpg" alt="Отель">
+                </div>
+
+                <div class="result-card fade-in">
+                    <div style="display: flex;justify-content: space-between;align-items: start;margin-bottom: 16px;">
+                        <div>
+                            <div style="display: flex;align-items: center;gap: 8px;margin-bottom: 8px;">
+                                <span style="font-size: 20px;">★★★★★</span>
+                            </div>
+                            <h1 style="font-size: 36px;margin-bottom: 8px;">Гранд Отель Сочи</h1>
+                            <p style="color: var(--text-muted);">Курортный отель</p>
+                        </div>
+                        <span class="badge badge-primary" style="font-size: 18px;padding: 10px 16px;">9.2/10</span>
+                    </div>
+
+                    <div style="display: flex;align-items: center;gap: 16px;font-size: 14px;color: var(--text-muted);margin-bottom: 24px;">
+                        <div style="display: flex;align-items: center;gap: 6px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Сочи, Россия</span>
+                        </div>
+                        <div style="display: flex;align-items: center;gap: 6px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            <span>+7 (862) 123-45-67</span>
+                        </div>
+                        <div style="display: flex;align-items: center;gap: 6px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                            </svg>
+                            <span>info@grandhotel-sochi.ru</span>
+                        </div>
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border);padding-top: 24px;margin-top: 24px;">
+                        <h2 style="font-size: 24px;margin-bottom: 16px;">Об отеле</h2>
+                        <p style="line-height: 1.8;color: var(--text);">Роскошный пятизвездочный отель на берегу Черного моря с собственным пляжем и спа-центром мирового класса. Идеальное место для отдыха с семьей или романтического путешествия. К вашим услугам просторные номера с видом на море, рестораны с изысканной кухней и множество развлечений.</p>
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border);padding-top: 24px;margin-top: 24px;">
+                        <h2 style="font-size: 24px;margin-bottom: 16px;">Удобства</h2>
+                        <div class="amenities-grid">
+                            <div class="amenity-item">
+                                <div class="amenity-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                                        <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                                        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                                        <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                                    </svg>
+                                </div>
+                                <span style="font-size: 14px;">WiFi</span>
+                            </div>
+                            <div class="amenity-item">
+                                <div class="amenity-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+                                    </svg>
+                                </div>
+                                <span style="font-size: 14px;">Парковка</span>
+                            </div>
+                            <div class="amenity-item">
+                                <div class="amenity-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M2 6h4"></path>
+                                        <path d="M2 10h4"></path>
+                                        <path d="M2 14h4"></path>
+                                        <path d="M2 18h4"></path>
+                                        <rect x="6" y="6" width="16" height="12" rx="2" ry="2"></rect>
+                                    </svg>
+                                </div>
+                                <span style="font-size: 14px;">Бассейн</span>
+                            </div>
+                            <div class="amenity-item">
+                                <div class="amenity-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 2v2"></path>
+                                        <path d="M12 20v2"></path>
+                                        <path d="m4.93 4.93 1.41 1.41"></path>
+                                        <path d="m17.66 17.66 1.41 1.41"></path>
+                                        <path d="M2 12h2"></path>
+                                        <path d="M20 12h2"></path>
+                                        <path d="m6.34 17.66-1.41 1.41"></path>
+                                        <path d="m19.07 4.93-1.41 1.41"></path>
+                                    </svg>
+                                </div>
+                                <span style="font-size: 14px;">Спа</span>
+                            </div>
+                            <div class="amenity-item">
+                                <div class="amenity-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                                        <path d="M7 2v20"></path>
+                                        <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+                                    </svg>
+                                </div>
+                                <span style="font-size: 14px;">Ресторан</span>
+                            </div>
+                            <div class="amenity-item">
+                                <div class="amenity-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                                    </svg>
+                                </div>
+                                <span style="font-size: 14px;">Тренажерный зал</span>
+                            </div>
+                            <div class="amenity-item">
+                                <div class="amenity-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path>
+                                    </svg>
+                                </div>
+                                <span style="font-size: 14px;">Кондиционер</span>
+                            </div>
+                            <div class="amenity-item">
+                                <div class="amenity-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path>
+                                        <path d="M7 10h10"></path>
+                                        <path d="M7 14h10"></path>
+                                    </svg>
+                                </div>
+                                <span style="font-size: 14px;">Прачечная</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-card fade-in">
+                    <h2 style="font-size: 24px;margin-bottom: 24px;">Доступные номера</h2>
+                    
+                    <div class="room-item">
+                        <div>
+                            <h3 style="font-size: 18px;font-weight: 700;margin-bottom: 8px;">Стандартный номер</h3>
+                            <div style="display: flex;flex-wrap: wrap;gap: 8px;">
+                                <span style="padding: 4px 10px;border: 1px solid var(--border);border-radius: 6px;font-size: 13px;background: var(--muted-bg);">2 односпальные кровати</span>
+                                <span style="padding: 4px 10px;border: 1px solid var(--border);border-radius: 6px;font-size: 13px;background: var(--muted-bg);">Вид на город</span>
+                                <span style="padding: 4px 10px;border: 1px solid var(--border);border-radius: 6px;font-size: 13px;background: var(--muted-bg);">25 м²</span>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="font-family: 'Montserrat', sans-serif;font-size: 24px;font-weight: 700;color: var(--primary);margin-bottom: 8px;">5 000 ₽</p>
+                            <p style="font-size: 14px;color: var(--text-muted);margin-bottom: 12px;">за ночь</p>
+                            <button class="btn btn-primary" onclick="alert('Бронирование номера')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Забронировать
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="room-item">
+                        <div>
+                            <h3 style="font-size: 18px;font-weight: 700;margin-bottom: 8px;">Номер Делюкс с видом на море</h3>
+                            <div style="display: flex;flex-wrap: wrap;gap: 8px;">
+                                <span style="padding: 4px 10px;border: 1px solid var(--border);border-radius: 6px;font-size: 13px;background: var(--muted-bg);">1 двуспальная кровать</span>
+                                <span style="padding: 4px 10px;border: 1px solid var(--border);border-radius: 6px;font-size: 13px;background: var(--muted-bg);">Вид на море</span>
+                                <span style="padding: 4px 10px;border: 1px solid var(--border);border-radius: 6px;font-size: 13px;background: var(--muted-bg);">35 м²</span>
+                                <span style="padding: 4px 10px;border: 1px solid var(--border);border-radius: 6px;font-size: 13px;background: var(--muted-bg);">Балкон</span>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="font-family: 'Montserrat', sans-serif;font-size: 24px;font-weight: 700;color: var(--primary);margin-bottom: 8px;">8 500 ₽</p>
+                            <p style="font-size: 14px;color: var(--text-muted);margin-bottom: 12px;">за ночь</p>
+                            <button class="btn btn-primary" onclick="alert('Бронирование номера')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Забронировать
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="room-item">
+                        <div>
+                            <h3 style="font-size: 18px;font-weight: 700;margin-bottom: 8px;">Люкс</h3>
+                            <div style="display: flex;flex-wrap: wrap;gap: 8px;">
+                                <span style="padding: 4px 10px;border: 1px solid var(--border);border-radius: 6px;font-size: 13px;background: var(--muted-bg);">1 двуспальная кровать</span>
+                                <span style="padding: 4px 10px;border: 1px solid var(--border);border-radius: 6px;font-size: 13px;background: var(--muted-bg);">Вид на море</span>
+                                <span style="padding: 4px 10px;border: 1px solid var(--border);border-radius: 6px;font-size: 13px;background: var(--muted-bg);">55 м²</span>
+                                <span style="padding: 4px 10px;border: 1px solid var(--border);border-radius: 6px;font-size: 13px;background: var(--muted-bg);">Балкон</span>
+                                <span style="padding: 4px 10px;border: 1px solid var(--border);border-radius: 6px;font-size: 13px;background: var(--muted-bg);">Гостиная зона</span>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="font-family: 'Montserrat', sans-serif;font-size: 24px;font-weight: 700;color: var(--primary);margin-bottom: 8px;">15 000 ₽</p>
+                            <p style="font-size: 14px;color: var(--text-muted);margin-bottom: 12px;">за ночь</p>
+                            <button class="btn btn-primary" onclick="alert('Бронирование номера')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Забронировать
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="sidebar-card fade-in">
+                    <div style="margin-bottom: 24px;">
+                        <p style="font-size: 14px;color: var(--text-muted);margin-bottom: 4px;">Цена от</p>
+                        <p style="font-family: 'Montserrat', sans-serif;font-size: 40px;font-weight: 700;color: var(--primary);margin-bottom: 4px;">5 000 ₽</p>
+                        <p style="font-size: 14px;color: var(--text-muted);">за ночь</p>
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border);padding-top: 24px;margin-bottom: 24px;">
+                        <div style="margin-bottom: 16px;">
+                            <label style="font-size: 14px;font-weight: 500;margin-bottom: 8px;display: block;">Дата заезда</label>
+                            <input type="date" class="input">
+                        </div>
+                        <div style="margin-bottom: 16px;">
+                            <label style="font-size: 14px;font-weight: 500;margin-bottom: 8px;display: block;">Дата выезда</label>
+                            <input type="date" class="input">
+                        </div>
+                        <div style="margin-bottom: 16px;">
+                            <label style="font-size: 14px;font-weight: 500;margin-bottom: 8px;display: block;">Количество гостей</label>
+                            <input type="number" class="input" placeholder="2" min="1">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-lg btn-full" style="margin-bottom: 12px;" onclick="alert('Бронирование отеля')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        Забронировать
+                    </button>
+
+                    <button class="btn btn-outline btn-lg btn-full" onclick="alert('Добавлено в избранное')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                        В избранное
+                    </button>
+
+                    <div style="border-top: 1px solid var(--border);padding-top: 24px;margin-top: 24px;">
+                        <div style="display: flex;flex-direction: column;gap: 12px;">
+                            <div style="display: flex;align-items: center;gap: 8px;color: var(--success);font-size: 14px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                <span>Бесплатная отмена</span>
+                            </div>
+                            <div style="display: flex;align-items: center;gap: 8px;color: var(--success);font-size: 14px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                <span>Без предоплаты</span>
+                            </div>
+                            <div style="display: flex;align-items: center;gap: 8px;color: var(--success);font-size: 14px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                <span>Мгновенное подтверждение</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
